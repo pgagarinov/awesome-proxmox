@@ -1,0 +1,26 @@
+---
+# tasks file for prepare cloud-init data for creating new vyos proxmox vm
+    - name: Create user-data file.
+      template:
+        src: "user-data-loop.j2"
+        dest: "/tmp/user-data{{ item.id }}"
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
+        mode: 0644
+      with_items: "{{ vms }}"
+
+    - name: Create network-config file.
+      template:
+        src: "network-config.j2"
+        dest: "/tmp/network-config"
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
+        mode: 0644
+
+    - name: Create meta-data empty file.
+      template:
+        src: "meta-data.j2"
+        dest: "/tmp/meta-data"
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
+        mode: 0644

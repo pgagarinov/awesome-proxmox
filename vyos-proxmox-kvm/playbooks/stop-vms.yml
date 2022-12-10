@@ -1,0 +1,10 @@
+- name: 'stop vms on proxmox'
+  hosts: 'all'
+  vars_prompt:
+  - name: pv_password
+    prompt: "Node Password"
+    private: yes
+  user: root@pam
+  gather_facts: false
+  roles:
+    - { role: start_or_stop_vms, action: stopped } #started, stopped, absent

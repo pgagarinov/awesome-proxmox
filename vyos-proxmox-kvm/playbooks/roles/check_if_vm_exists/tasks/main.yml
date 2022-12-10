@@ -1,0 +1,19 @@
+---
+# tasks file for check if vm exists
+      - name: Check if vm exists.
+        shell: T=$(qm list | grep {{ item.name }} | grep {{ item.id }}); if [ ! -z "$T" ]; then echo "exists";fi
+        register: vm_exists_state
+        with_items: "{{ vms }}"
+
+      - debug:
+          msg:
+             - "item [{{ item.stdout }}]"
+             - "{% if item.stdout == 'exists' %}Template with id {{ item.item.id }} exists, playbook will be stopped{% else %}Template {{ item.item.id }} does not exist, continue ... {% endif %}"
+        with_items: "{{ vm_exists_state.results }}"
+
+      - name: Stop playbook if vyos vm already exists
+        fail: msg="______VM with id [{{ item.item.id }}] already exists !!! ______"
+        when:
+          - item.stdout
+          - item.stdout == "exists"
+        loop: "{{ vm_exists_state.results }}"
