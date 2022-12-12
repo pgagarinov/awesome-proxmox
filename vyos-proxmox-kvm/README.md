@@ -17,18 +17,19 @@
   pip install proxmoxer
   ```
 
-  ### 3. Create `vyos` cloud-init image, [using ansible playbook](https://github.com/vyos/vyos-vm-images/tree/bafe06bbbf4d67a98c78c01f1cef379eb6d13fa1) and copy it to `~/cloud-init-images` folder of `k3s-config` host.
+  ### 3. Create `vyos` cloud-init image, using [vyos/vyos-vm-images](https://github.com/vyos/vyos-vm-images/tree/bafe06bbbf4d67a98c78c01f1cef379eb6d13fa1) ansible playbook  and copy it to `~/cloud-init-images` folder of `k3s-config` host.
 
-## Clone [`awesome-proxmox`](https://github.com/Alliedium/awesome-proxmox) project and configure the files `./inventory/hosts.yml` and `./inventory/group_vars/all.yml`.
-  ### 1. Clone `awesome-proxmox` project on your local host
+## Clone [`awesome-proxmox`](https://github.com/Alliedium/awesome-proxmox) project.
+  ### 1. Clone `awesome-proxmox` project to your local host
   
   ```
   git clone https://github.com/Alliedium/awesome-proxmox.git
   ```
   ### 2. Go to `vyos-proxmox-kvm` folder
-  ### 3. Change the variables in the files `./inventory/hosts.yml` and `./inventory/group_vars/all.yml` as you need
-  ### 4. Changes files from `./playbooks/roles/prepare_vyos_cloud_init_data_for_vms/templates` folder to [configure vyos](https://docs.vyos.io/en/latest/automation/cloud-init.html) as you need.
-  ### 5. Here an example of data `./inventory/hosts.yml` file for creating 2 `vyos` vms
+  ### 3. Copy `./inventory/single_vyos` to `./inventory/my-cluster` folder.
+  ### 4. Change the variables in the files `./inventory/single_vyos/hosts.yml` and `./inventory/single_vyos/group_vars/all.yml` as you need
+  ### 5. Edit files from `./playbooks/roles/prepare_vyos_cloud_init_data_for_vms/templates` folder to  change [current vyos configuration](https://docs.vyos.io/en/latest/automation/cloud-init.html) as you need.
+  ### 6. Here an example of data `./inventory/hosts.yml` file for creating 2 `vyos` vms
 
   ![image](./images/hosts3.jpg)
 
