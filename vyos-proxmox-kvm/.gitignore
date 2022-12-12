@@ -1,0 +1,5 @@
+inventory/*
+!inventory/double_vyos
+!inventory/double_vyos/**
+!inventory/single_vyos
+!inventory/single_vyos/**

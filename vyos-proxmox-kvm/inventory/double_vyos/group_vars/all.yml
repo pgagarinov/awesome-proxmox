@@ -1,4 +1,4 @@
-default_proxmox_node: pve
+default_proxmox_node: px3-sandbox-3
 romote_image_folder: ~/cloud-init-images
 cloud_init_image_path: ~/cloud-init-images/vyos-1.4.5-cloud-init-2G-qemu.qcow2
 local_cloud_init_image_path: ~/cloud-init-images/vyos-1.4.5-cloud-init-2G-qemu.qcow2
@@ -15,18 +15,18 @@ network:
   lan_ip_mask: '24'
   lan_description: 'INSIDE'
   nat_outbound_interface: 'eth0'
-  nat_source_address: '10.0.10.0/24'
-  static_route_next_hop: '192.168.16.1'
+  nat_source_address: '10.10.0.0/24'
+  static_route_next_hop: '10.44.111.1'
   dhcp:
     lan:
-      subnet: '10.0.10.0/24'
+      subnet: '10.10.0.0/24'
       domain_name: 'vyos.net'
       lease: '86400'
-      range_start: '10.0.10.100'
-      range_stop: '10.0.10.200'
+      range_start: '10.10.0.100'
+      range_stop: '10.10.0.200'
   dns_cache_size: '0'
-  dns_allow_from: '10.0.10.0/24'
-  name_server: '192.168.16.1'
+  dns_allow_from: '10.10.0.0/24'
+  name_server: '10.44.111.1'
 
 users:
   - user: 'k3s-user'
@@ -35,6 +35,6 @@ users:
     public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABgQDINWD9ztR8Zq/dGjGENWlMyjgvqBCy2cAoOg4ztB2w7YDA1JVObP4MDzBJnl+VD/6HvcjAjtC6n9AzaDG1odGHCzGY8Up1qR8me6W+XUPKS1Fkq3LQ7fg8Cza5uH45azPELA0myA4Mkodxw+9XLkn3wVSF1oEv8m9LP7c6qDXsEMuVaELUYgDYqBBTvQddUGfU/nSmRUpoLfCjnZ8NkXFzXyX3J/esnsHXKQBI9XKTMpmwPWmvCtK873IH3aplclZVIWlL7emrilt3cEM2oGe171TcFLF+ZE7945CDbrUIdpBc58fVyGdOJYqOJXyGvlFVZvyGuvjZIXtZG1wCAK7BU+euWTWxA3z1sbFbZMJPNEQnptCT/iP/Da/FLegtmnIOANpE52Y+5h7hRyZvfyQXVWf5YX9KkpNO4pdYsXKBKv9jm7MiENATLsYs5NtpC5GNgFRWg1OLiFU2gqD+C/fH9k8GoCpaLqgBPYdKFzXpwBsCuUsMJAG4u1Y8fJWJJus= tolik@DESKTOP-D8C0475'
     key_type: 'ssh-rsa'
 
-ntp:
-  server_1: '1.pool.ntp.org'
-  server_2: '2.pool.ntp.org'
+ntp_servers:
+  - '1.pool.ntp.org'
+  - '2.pool.ntp.org'
