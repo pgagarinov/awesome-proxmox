@@ -1,6 +1,6 @@
-# Create Vyos vms on ***<font color="green">Proxmox</font>*** node via Ansible playbooks
+# Create Vyos VMs on ***<font color="green">Proxmox</font>*** node via Ansible playbooks
   
-  These ansible playbooks create `vyos` vms on Proxmox node with certain configured network settings. Also using playbooks you can remove, start or stop them.
+  These ansible playbooks create `vyos` VMs on Proxmox node with certain configured network settings. Also using playbooks you can remove, start or stop them.
 
 ## Prerequisites
   ### 1. Install Ansible on `k3s-config` host. We will run ansible playbooks on it.
@@ -19,58 +19,58 @@
 
   ### 3. Create `vyos` cloud-init image, using [vyos/vyos-vm-images](https://github.com/vyos/vyos-vm-images/tree/bafe06bbbf4d67a98c78c01f1cef379eb6d13fa1) ansible playbook  and copy it to `~/cloud-init-images` folder of `k3s-config` host.
 
-## Clone [`awesome-proxmox`](https://github.com/Alliedium/awesome-proxmox) project.
+## Prepare ['Ansible files for deployment`](https://github.com/Alliedium/awesome-proxmox) project.
   ### 1. Clone `awesome-proxmox` project to your local host
   
   ```
   git clone https://github.com/Alliedium/awesome-proxmox.git
   ```
   ### 2. Go to `vyos-proxmox-kvm` folder
-  ### 3. Copy `./inventory/single_vyos` to `./inventory/my-cluster` folder.
-  ### 4. Change the variables in the files `./inventory/single_vyos/hosts.yml` and `./inventory/single_vyos/group_vars/all.yml` as you need
-  ### 5. Edit files from `./playbooks/roles/prepare_vyos_cloud_init_data_for_vms/templates` folder to  change [current vyos configuration](https://docs.vyos.io/en/latest/automation/cloud-init.html) as you need.
-  ### 6. Here an example of data `./inventory/hosts.yml` file for creating 2 `vyos` vms
+  ### 3. Copy `./inventory/single_vyos_sample` or `./inventory/double_vyos_sample` to `./inventory/my-cluster` folder.
+  ### 4. Change the variables in the files `./inventory/my-cluster/hosts.yml` and `./inventory/my-cluster/group_vars/all.yml` as you need
+   
+  * Here an example of data `./inventory/my-cluster/hosts.yml` file for creating 2 `vyos` VMs
 
   ![image](./images/hosts3.jpg)
 
-  Object `vms` includes data for 2 vms.  
+  Object `vms` includes data for 2 VMs.  
 
-## Create and start vms on ***<font color="green">Proxmox</font>*** node.
+## Create and start VMs on ***<font color="green">Proxmox</font>*** node.
  
   ### Run ansible playbooks
 
   ```
-  ansible-playbook -i ./inventory ./playbooks/batch-create-start.yml
+  ansible-playbook -i ./inventory/my-cluster ./playbooks/batch-create-start.yml
   ```
-## Stop and destroy vms on ***<font color="green">Proxmox</font>*** node.
+## Stop and destroy VMs on ***<font color="green">Proxmox</font>*** node.
    ### 1. Run ansible playbooks
 
   ```
-  ansible-playbook -i ./inventory ./playbooks/batch-stop-destroy.yml
+  ansible-playbook -i ./inventory/my-cluster ./playbooks/batch-stop-destroy.yml
   ```
 
-## Other action
+## Other actions
 
-   ### create-vms
-
-   ```
-   ansible-playbook -i ./inventory ./playbooks/create-vms.yml
-   ```
-
-   ### start-vms
+   ### create-VMs
 
    ```
-   ansible-playbook -i ./inventory ./playbooks/start-vms.yml
+   ansible-playbook -i ./inventory/my-cluster ./playbooks/create-vms.yml
    ```
 
-   ### stop-vms
+   ### start-vVMs
 
    ```
-   ansible-playbook -i ./inventory ./playbooks/stop-vms.yml
+   ansible-playbook -i ./inventory/my-cluster ./playbooks/start-vms.yml
    ```
 
-   ###  remove-vms
+   ### stop-VMs
 
    ```
-   ansible-playbook -i ./inventory ./playbooks/destroy-vms.yml
+   ansible-playbook -i ./inventory/my-cluster ./playbooks/stop-vms.yml
+   ```
+
+   ###  remove-VMs
+
+   ```
+   ansible-playbook -i ./inventory/my-cluster ./playbooks/destroy-vms.yml
    ```

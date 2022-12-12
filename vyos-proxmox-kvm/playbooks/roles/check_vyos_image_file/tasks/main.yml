@@ -1,50 +1,50 @@
 ---
 # tasks check vyos cloud-init image file on remote host
-    - name: Check cloud-init vyos image file on remote host
-      stat:
-        path: "{{ cloud_init_image_path }}"
-      register: image_file
+- name: Check cloud-init vyos image file on remote host
+  stat:
+    path: "{{ cloud_init_image_path }}"
+  register: image_file
 
-    - name: Check vyos image folder on remote host
-      stat:
-        path: "{{ romote_image_folder }}"
-      register: image_folder
+- name: Check vyos image folder on remote host
+  stat:
+    path: "{{ remote_image_folder }}"
+  register: image_folder
 
-    - name: Check cloud-init vyos image file on local host
-      delegate_to: localhost
-      local_action: stat path={{ local_cloud_init_image_path }}
-      register: local_image_file
+- name: Check cloud-init vyos image file on local host
+  delegate_to: localhost
+  local_action: stat path={{ local_cloud_init_image_path }}
+  register: local_image_file
 
-    - debug:
-         msg:
-           - "Remote host -  [{{ cloud_init_image_path }}] [{{ image_file.stat.exists }}]"
-           - "Remote host -  [{{ romote_image_folder }}] [{{ image_folder.stat.exists }}]"
-           - "Local host - [{{ local_cloud_init_image_path }}] [{{  local_image_file.stat.exists }}]"
-           - "{% if not image_file.stat.exists and local_image_file.stat.exists %}Image '{{local_cloud_init_image_path}}' will be copied to '{{ cloud_init_image_path }}'{% else %} Image '{{ cloud_init_image_path }}' exists on remote host and will not be copied {% endif %}"
+- debug:
+    msg:
+      - "Remote host -  [{{ cloud_init_image_path }}] [{{ image_file.stat.exists }}]"
+      - "Remote host -  [{{ remote_image_folder }}] [{{ image_folder.stat.exists }}]"
+      - "Local host - [{{ local_cloud_init_image_path }}] [{{  local_image_file.stat.exists }}]"
+      - "{% if not image_file.stat.exists and local_image_file.stat.exists %}Image '{{local_cloud_init_image_path}}' will be copied to '{{ cloud_init_image_path }}'{% else %} Image '{{ cloud_init_image_path }}' exists on remote host and will not be copied {% endif %}"
 
-    - name: Stop playbook if vyos image does not exist.
-      fail: msg="______ Vyos cloud-init image is not found !!! ______"
-      when:
-        - not local_image_file.stat.exists and not image_file.stat.exists
+- name: Stop playbook if vyos image does not exist.
+  fail: msg="______ Vyos cloud-init image is not found !!! ______"
+  when:
+    - not local_image_file.stat.exists and not image_file.stat.exists
 
-    - name: Create image directory if not exists
-      file:
-        path: "{{ romote_image_folder }}"
-        state: directory
-        owner: '{{ ansible_user }}'
-        group: '{{ ansible_user }}'
-        mode: 0775
-      when: image_folder.stat.exists == false
+- name: Create image directory if not exists
+  file:
+    path: "{{ remote_image_folder }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0775
+  when: image_folder.stat.exists == false
 
-    - name: Copy vyos image file from local to remote host
-      become: yes
-      ansible.builtin.copy:
-        src: '{{ local_cloud_init_image_path }}'
-        remote_src: no
-        dest: '{{ cloud_init_image_path }}'
-        owner: '{{ ansible_user }}'
-        group: '{{ ansible_user }}'
-        mode: '0644'
-      when:
-         - not image_file.stat.exists
-         - local_image_file.stat.exists
+- name: Copy vyos image file from local to remote host
+  become: yes
+  ansible.builtin.copy:
+    src: "{{ local_cloud_init_image_path }}"
+    remote_src: no
+    dest: "{{ cloud_init_image_path }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
+  when:
+    - not image_file.stat.exists
+    - local_image_file.stat.exists

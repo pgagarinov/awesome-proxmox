@@ -1,29 +1,29 @@
 ---
 # tasks file for clone and start VM
-      - name: Check if vm exists.
-        shell: A=$(qm list | grep {{ item.name }} | grep {{ item.id }}); if [ ! -z "$A" ]; then echo "exists";fi
-        register: vm_exists_state
-        with_items: "{{ vms }}"
+- name: Check if vm exists.
+  shell: A=$(qm list | grep {{ item.name }} | grep {{ item.id }}); if [ ! -z "$A" ]; then echo "exists"; fi
+  register: vm_exists_state
+  with_items: "{{ vms }}"
 
-      - name: Start or stop or destroy VM
-        proxmox_kvm:
-          api_user: root@pam
-          proxmox_default_behavior: "no_defaults"
-          api_password: "{{ pv_password }}"
-          api_host: "{{ default_proxmox_node }}"
-          vmid: "{{ item.id }}"
-          state: "{{ action }}"
-          force: yes
-        register: action_result
-        when:
-          - vm_exists_state.results[loop_index].stdout
-          - vm_exists_state.results[loop_index].stdout == "exists"
-        loop: "{{ vms }}"
-        loop_control:
-          index_var: loop_index
+- name: Start or stop or destroy VM
+  proxmox_kvm:
+    api_user: root@pam
+    proxmox_default_behavior: "no_defaults"
+    api_password: "{{ pv_password }}"
+    api_host: "{{ default_proxmox_node }}"
+    vmid: "{{ item.id }}"
+    state: "{{ action }}"
+    force: yes
+  register: action_result
+  when:
+    - vm_exists_state.results[loop_index].stdout
+    - vm_exists_state.results[loop_index].stdout == "exists"
+  loop: "{{ vms }}"
+  loop_control:
+    index_var: loop_index
 
-      - debug:
-           msg:
-             - "Action {{ action }} for {{ item.item.id }}"
-             - "action_result {{ item }}"
-        loop: "{{ action_result.results }}"
+- debug:
+    msg:
+      - "Action {{ action }} for {{ item.item.id }}"
+      - "action_result {{ item }}"
+  loop: "{{ action_result.results }}"

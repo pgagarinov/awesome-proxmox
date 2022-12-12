@@ -1,29 +1,29 @@
 ---
 # tasks file for creating new vm in proxmox for template
-    - name: Check if vm exists.
-      shell: A=$(qm list | grep {{ item.name }} | grep {{ item.id }}); if [ ! -z "$A" ]; then echo "exists";fi
-      register: vm_exists_state
-      with_items: "{{ vms }}"
+- name: Check if vm exists.
+  shell: A=$(qm list | grep {{ item.name }} | grep {{ item.id }}); if [ ! -z "$A" ]; then echo "exists"; fi
+  register: vm_exists_state
+  with_items: "{{ vms }}"
 
-    - name: Create a new VM from scratch in Proxmox node
-      proxmox_kvm:
-        node: "{{ default_proxmox_node }}"
-        api_user : root@pam
-        api_password: "{{ pv_password }}"
-        api_host:  "{{ default_proxmox_node }}"
-        name:  "{{ item.name }}"
-        vmid:  "{{ item.id }}"
-        proxmox_default_behavior: "no_defaults"
-        timeout: "500"
-        description: "description vyos"
-        scsihw: "virtio-scsi-pci"
-        cores: "{{ resources.cores }}"
-        memory: "{{ resources.memory }}"
-        balloon: "0"
-        citype: "nocloud"
-        net: '{"net0" : "virtio,bridge=vmbr0,rate=200"}'
-      loop: "{{ vms }}"
-      loop_control:
-        index_var: loop_index
-      when:
-        - not vm_exists_state.results[loop_index].stdout
+- name: Create a new VM from scratch in Proxmox node
+  proxmox_kvm:
+    node: "{{ default_proxmox_node }}"
+    api_user: root@pam
+    api_password: "{{ pv_password }}"
+    api_host: "{{ default_proxmox_node }}"
+    name: "{{ item.name }}"
+    vmid: "{{ item.id }}"
+    proxmox_default_behavior: "no_defaults"
+    timeout: "500"
+    description: "description vyos"
+    scsihw: "virtio-scsi-pci"
+    cores: "{{ resources.cores }}"
+    memory: "{{ resources.memory }}"
+    balloon: "0"
+    citype: "nocloud"
+    net: '{"net0" : "virtio,bridge=vmbr0,rate=200"}'
+  loop: "{{ vms }}"
+  loop_control:
+    index_var: loop_index
+  when:
+    - not vm_exists_state.results[loop_index].stdout
