@@ -1,0 +1,30 @@
+---
+# tasks file for prepare cloud-init data for creating new vyos proxmox vm
+    - name: Create user-data file.
+      template:
+        src: "user-data-loop.j2"
+        dest: "/tmp/user-data{{ item.id }}"
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
+        mode: 0644
+      with_items: "{{ vms }}"
+
+    - name: Copy network-config file from local to remote host
+      become: yes
+      ansible.builtin.copy:
+        src: network-config
+        remote_src: no
+        dest: "/tmp/network-config"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0644"
+
+    - name: Copy meta-data file from local to remote host
+      become: yes
+      ansible.builtin.copy:
+        src: meta-data
+        remote_src: no
+        dest: "/tmp/meta-data"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0644"

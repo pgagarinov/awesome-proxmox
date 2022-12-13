@@ -1,0 +1,29 @@
+---
+# tasks file for clone and start VM
+- name: Check if vm exists.
+  include_role:
+    name: common
+    tasks_from: check_if_vm_exists
+
+- name: Start or stop or destroy VM
+  proxmox_kvm:
+    api_user: root@pam
+    proxmox_default_behavior: "no_defaults"
+    api_password: "{{ pv_password }}"
+    api_host: "{{ default_proxmox_node }}"
+    vmid: "{{ item.id }}"
+    state: "{{ action }}"
+    force: yes
+  register: action_result
+  when:
+    - vm_exists_state.results[loop_index].stdout
+    - vm_exists_state.results[loop_index].stdout == "exists"
+  loop: "{{ vms }}"
+  loop_control:
+    index_var: loop_index
+
+- debug:
+    msg:
+      - "Action {{ action }} for {{ item.item.id }}"
+      - "action_result {{ item }}"
+  loop: "{{ action_result.results }}"

@@ -1,0 +1,53 @@
+---
+# tasks import disk to vm
+    - stat: path={{ cloud_init_image_path }}
+      register: image_path
+
+    - name: Create seed.iso
+      shell: cp /tmp/user-data{{ item.id }} /tmp/user-data; mkisofs -joliet -rock -volid cidata -output /tmp/seed.iso /tmp/meta-data /tmp/network-config /tmp/user-data; mv /tmp/seed.iso /var/lib/vz/template/iso/seed{{ item.id }}.iso;
+      when:
+         - cloud_init_image_path != "none"
+         - image_path.stat.exists
+      with_items: "{{ vms }}"
+
+    - stat: path="{{ seed_iso_path }}seed{{ item.id }}.iso"
+      register: seed_iso_file
+      with_items: "{{ vms }} "
+
+    - debug:
+         msg:
+            - "Images [{{ cloud_init_image_path }}] {% if image_path.stat.exists %}exists{% else %}does not exist{% endif %}  [{{ image_path.stat.exists }}]"
+            - "Images [{{ seed_iso_path }}seed{{ item.item.id }}.iso] {% if item.stat.exists %}exists{% else %}does not exist{% endif %}  [{{ item.stat.exists }}]"
+      with_items: "{{ seed_iso_file.results }}"
+
+    - name: Import disk to vm
+      shell: qm importdisk {{ item.id }} {{ cloud_init_image_path }} local-lvm
+      when:
+         - cloud_init_image_path != "none"
+         - image_path.stat.exists
+         - seed_iso_file.results[loop_index].stat.exists
+      loop: "{{ vms }}"
+      loop_control:
+        index_var: loop_index
+
+    - name: Set imported disk to vm
+      shell: qm set {{ item.id }} --virtio0 local-lvm:vm-{{ item.id }}-disk-0; qm set {{ item.id }} --ide2 media=cdrom,file=local:iso/seed{{ item.id }}.iso
+      when:
+         - cloud_init_image_path != "none"
+         - image_path.stat.exists
+         - seed_iso_file.results[loop_index].stat.exists
+      with_items: "{{ vms }}"
+      loop_control:
+        index_var: loop_index
+
+    - name: Change boot order
+      proxmox_kvm:
+        api_user: root@pam
+        api_password: "{{ pv_password }}"
+        api_host:  "{{ default_proxmox_node }}"
+        node: "{{ default_proxmox_node }}"
+        vmid: "{{ item.id }}"
+        boot: "cd"
+        bootdisk: "virtio0"
+        update: yes
+      with_items: "{{ vms }}"

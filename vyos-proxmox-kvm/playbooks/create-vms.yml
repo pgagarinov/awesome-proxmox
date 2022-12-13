@@ -1,0 +1,15 @@
+- name: 'create vyos vm in proxmox hosts'
+  hosts: 'all'
+  vars_prompt:
+  - name: pv_password
+    prompt: "Node Password"
+    private: yes
+  user: root@pam
+  gather_facts: false
+  roles:
+    - { role: check_if_vm_exists }
+    - { role: check_vyos_image_file }
+    - { role: prepare_vyos_cloud_init_data_for_vms }
+    - { role: create_vm }
+    - { role: import_disk_to_vm }
+    - { role: start_or_stop_vms, action: started } #started, stopped, absent
