@@ -1,2 +1,0 @@
- - name: 'prep proxmox hosts for automation'
-   hosts: 'proxmox1'
