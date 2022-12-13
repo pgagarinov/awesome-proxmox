@@ -3,10 +3,19 @@
   These ansible playbooks create `vyos` VMs on Proxmox node with certain configured network settings. Also using playbooks you can remove, start or stop them.
 
 ## Prerequisites
-  ### 1. Install Ansible on `k3s-config` host. We will run ansible playbooks on it.
+  ### 1. Install Ansible on `mkde0` host. We will run ansible playbooks on it.
+
+  For `Debian` Linux
   ```
   sudo apt update
   sudo apt install ansible
+  ```
+
+  For `Arch` Linux
+
+  ```
+  sudo pacman -Syyuu --needed --noconfirm
+  sudo pacman -S ansible python-netaddr
   ```
 
   ### 2. Install the necessary packages on each node from the ***<font color="green">Proxmox</font>*** cluster
@@ -17,9 +26,9 @@
   pip install proxmoxer
   ```
 
-  ### 3. Create `vyos` cloud-init image, using [vyos/vyos-vm-images](https://github.com/vyos/vyos-vm-images) ansible playbook  and copy it to `~/cloud-init-images` folder of `k3s-config` host.
+  ### 3. Create `vyos` cloud-init image, using [vyos/vyos-vm-images](https://github.com/vyos/vyos-vm-images) ansible playbook  and copy it to `~/cloud-init-images` folder of `mkde0` host.
 
-## Prepare Ansible files for deployment.
+## Prepare Ansible files for deployment
   ### 1. Clone `awesome-proxmox` project to your local host
   
   ```
@@ -35,14 +44,14 @@
 
   Object `vms` includes data for 2 VMs.  
 
-## Create and start VMs on ***<font color="green">Proxmox</font>*** node.
+## Create and start VMs on ***<font color="green">Proxmox</font>*** node
  
   ### Run ansible playbooks
 
   ```
   ansible-playbook -i ./inventory/my-vyos ./playbooks/batch-create-start.yml
   ```
-## Stop and destroy VMs on ***<font color="green">Proxmox</font>*** node.
+## Stop and destroy VMs on ***<font color="green">Proxmox</font>*** node
    ### 1. Run ansible playbooks
 
   ```

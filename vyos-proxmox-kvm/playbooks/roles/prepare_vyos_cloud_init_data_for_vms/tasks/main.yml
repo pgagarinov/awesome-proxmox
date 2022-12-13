@@ -9,18 +9,22 @@
         mode: 0644
       with_items: "{{ vms }}"
 
-    - name: Create network-config file.
-      template:
-        src: "network-config.j2"
+    - name: Copy network-config file from local to remote host
+      become: yes
+      ansible.builtin.copy:
+        src: network-config
+        remote_src: no
         dest: "/tmp/network-config"
-        owner: '{{ ansible_user }}'
-        group: '{{ ansible_user }}'
-        mode: 0644
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0644"
 
-    - name: Create meta-data empty file.
-      template:
-        src: "meta-data.j2"
+    - name: Copy meta-data file from local to remote host
+      become: yes
+      ansible.builtin.copy:
+        src: meta-data
+        remote_src: no
         dest: "/tmp/meta-data"
-        owner: '{{ ansible_user }}'
-        group: '{{ ansible_user }}'
-        mode: 0644
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0644"
