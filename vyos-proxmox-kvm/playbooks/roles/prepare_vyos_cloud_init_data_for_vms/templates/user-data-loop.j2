@@ -51,6 +51,7 @@ vyos_config_commands:
 {% endfor %}
   - set system login user vyos authentication encrypted-password '$6$W0BFodB2nd6pKA8h$iaTGVGe5yPwDCbQnqgcthS4ftBMQ8vAoVq/77Ojf4ufGWA4ux4zYa0IuImxijExZ8CbV0enEO0kqonZmiB1H/0'
   - set system login user vyos authentication plaintext-password ''
+{% for ntp_server in ntp_servers %}
   - set system ntp server {{ ntp_server }}
 {% endfor %}
   - set system name-server '{{ network.name_server }}'
