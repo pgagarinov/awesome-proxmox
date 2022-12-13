@@ -11,7 +11,7 @@
   sudo apt install ansible
   ```
 
-  For `Arch` Linux
+  For `Arch` Linux (including Manjaro)
 
   ```
   sudo pacman -Syyuu --needed --noconfirm
@@ -42,7 +42,7 @@
 
   ![image](./images/hosts3.jpg)
 
-  Object `vms` includes data for 2 VMs.  
+  Section `vms` includes data for 2 VMs.  
 
 ## Create and start VMs on ***<font color="green">Proxmox</font>*** node
  
