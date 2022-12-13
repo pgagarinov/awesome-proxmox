@@ -17,19 +17,19 @@
   pip install proxmoxer
   ```
 
-  ### 3. Create `vyos` cloud-init image, using [vyos/vyos-vm-images](https://github.com/vyos/vyos-vm-images/tree/bafe06bbbf4d67a98c78c01f1cef379eb6d13fa1) ansible playbook  and copy it to `~/cloud-init-images` folder of `k3s-config` host.
+  ### 3. Create `vyos` cloud-init image, using [vyos/vyos-vm-images](https://github.com/vyos/vyos-vm-images) ansible playbook  and copy it to `~/cloud-init-images` folder of `k3s-config` host.
 
-## Prepare ['Ansible files for deployment`](https://github.com/Alliedium/awesome-proxmox) project.
+## Prepare Ansible files for deployment.
   ### 1. Clone `awesome-proxmox` project to your local host
   
   ```
   git clone https://github.com/Alliedium/awesome-proxmox.git
   ```
   ### 2. Go to `vyos-proxmox-kvm` folder
-  ### 3. Copy `./inventory/single_vyos_sample` or `./inventory/double_vyos_sample` to `./inventory/my-cluster` folder.
-  ### 4. Change the variables in the files `./inventory/my-cluster/hosts.yml` and `./inventory/my-cluster/group_vars/all.yml` as you need
+  ### 3. Copy `./inventory/single_vyos_sample` or `./inventory/double_vyos_sample` to `./inventory/my-vyos` folder.
+  ### 4. Change the variables in the files `./inventory/my-vyos/hosts.yml` and `./inventory/my-vyos/group_vars/all.yml` as you need
    
-  * Here an example of data `./inventory/my-cluster/hosts.yml` file for creating 2 `vyos` VMs
+  * Here an example of data `./inventory/my-vyos/hosts.yml` file for creating 2 `vyos` VMs
 
   ![image](./images/hosts3.jpg)
 
@@ -40,13 +40,13 @@
   ### Run ansible playbooks
 
   ```
-  ansible-playbook -i ./inventory/my-cluster ./playbooks/batch-create-start.yml
+  ansible-playbook -i ./inventory/my-vyos ./playbooks/batch-create-start.yml
   ```
 ## Stop and destroy VMs on ***<font color="green">Proxmox</font>*** node.
    ### 1. Run ansible playbooks
 
   ```
-  ansible-playbook -i ./inventory/my-cluster ./playbooks/batch-stop-destroy.yml
+  ansible-playbook -i ./inventory/my-vyos ./playbooks/batch-stop-destroy.yml
   ```
 
 ## Other actions
@@ -54,23 +54,23 @@
    ### create-VMs
 
    ```
-   ansible-playbook -i ./inventory/my-cluster ./playbooks/create-vms.yml
+   ansible-playbook -i ./inventory/my-vyos ./playbooks/create-vms.yml
    ```
 
    ### start-vVMs
 
    ```
-   ansible-playbook -i ./inventory/my-cluster ./playbooks/start-vms.yml
+   ansible-playbook -i ./inventory/my-vyos ./playbooks/start-vms.yml
    ```
 
    ### stop-VMs
 
    ```
-   ansible-playbook -i ./inventory/my-cluster ./playbooks/stop-vms.yml
+   ansible-playbook -i ./inventory/my-vyos ./playbooks/stop-vms.yml
    ```
 
    ###  remove-VMs
 
    ```
-   ansible-playbook -i ./inventory/my-cluster ./playbooks/destroy-vms.yml
+   ansible-playbook -i ./inventory/my-vyos ./playbooks/destroy-vms.yml
    ```

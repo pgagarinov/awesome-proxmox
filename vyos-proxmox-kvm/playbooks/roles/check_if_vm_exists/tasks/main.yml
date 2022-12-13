@@ -1,9 +1,9 @@
 ---
 # tasks file for check if vm exists
 - name: Check if vm exists.
-  shell: T=$(qm list | grep {{ item.name }} | grep {{ item.id }}); if [ ! -z "$T" ]; then echo "exists"; fi
-  register: vm_exists_state
-  with_items: "{{ vms }}"
+  include_role:
+    name: common
+    tasks_from: check_if_vm_exists
 
 - debug:
     msg:

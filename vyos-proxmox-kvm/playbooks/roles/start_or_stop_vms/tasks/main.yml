@@ -1,9 +1,9 @@
 ---
 # tasks file for clone and start VM
 - name: Check if vm exists.
-  shell: A=$(qm list | grep {{ item.name }} | grep {{ item.id }}); if [ ! -z "$A" ]; then echo "exists"; fi
-  register: vm_exists_state
-  with_items: "{{ vms }}"
+  include_role:
+    name: common
+    tasks_from: check_if_vm_exists
 
 - name: Start or stop or destroy VM
   proxmox_kvm:
