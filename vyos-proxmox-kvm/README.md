@@ -57,7 +57,7 @@
    ansible-playbook -i ./inventory/my-vyos ./playbooks/create-vms.yml
    ```
 
-   ### start-vVMs
+   ### start-VMs
 
    ```
    ansible-playbook -i ./inventory/my-vyos ./playbooks/start-vms.yml
