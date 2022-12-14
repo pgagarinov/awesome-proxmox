@@ -43,10 +43,12 @@ vyos_config_commands:
   - set service dns forwarding system
   - set service ssh port '22'
   - set system host-name '{{ item.name }}'
-  - set system login user {{ users[0].user }} authentication encrypted-password '{{ users[0].encrypted_password }}'
-  - set system login user {{ users[0].user }} authentication public-keys {{ users[0].full_name }} key '{{ users[0].public_key }}'
-  - set system login user {{ users[0].user }} authentication public-keys {{ users[0].full_name }} type '{{ users[0].key_type }}'
-  - set system login user {{ users[0].user }} full-name '{{ users[0].full_name }}'
+{% for user_props in users %}
+  - set system login user {{ user_props.user }} authentication encrypted-password '{{ user_props.encrypted_password }}'
+  - set system login user {{ user_props.user }} authentication public-keys {{ user_props.full_name }} key '{{ user_props.public_key }}'
+  - set system login user {{ user_props.user }} authentication public-keys {{ user_props.full_name }} type '{{ user_props.key_type }}'
+  - set system login user {{ user_props.user }} full-name '{{ user_props.full_name }}'
+{% endfor %}
   - set system login user vyos authentication encrypted-password '$6$W0BFodB2nd6pKA8h$iaTGVGe5yPwDCbQnqgcthS4ftBMQ8vAoVq/77Ojf4ufGWA4ux4zYa0IuImxijExZ8CbV0enEO0kqonZmiB1H/0'
   - set system login user vyos authentication plaintext-password ''
 {% for ntp_server in ntp_servers %}
