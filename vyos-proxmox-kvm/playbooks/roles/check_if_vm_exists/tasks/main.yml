@@ -8,7 +8,7 @@
 - debug:
     msg:
       - "item [{{ item.stdout }}]"
-      - "{% if item.stdout == 'exists' %}Template with id {{ item.item.id }} exists, playbook will be stopped{% else %}Template {{ item.item.id }} does not exist, continue ... {% endif %}"
+      - "{% if item.stdout == 'exists' %}VM with id {{ item.item.id }} exists, playbook will be stopped{% else %}VM {{ item.item.id }} does not exist, continue ... {% endif %}"
   with_items: "{{ vm_exists_state.results }}"
 
 - name: Stop playbook if vyos vm already exists
