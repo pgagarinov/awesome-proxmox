@@ -14,7 +14,7 @@
 
   or follow [step 2](https://github.com/Alliedium/awesome-ansible#setting-up-config-machine) of `Setting up config machine` section to install latest Ansible version
 
-  ### 2. Install Ansible postfix role
+  ### 2. Install Ansible postfix role - [Oefenweb/ansible-postfix](https://github.com/Oefenweb/ansible-postfix)
 
   - Navigate to `./playbooks/config-postfix`
 
