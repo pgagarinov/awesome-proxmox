@@ -1,0 +1,13 @@
+- hosts: all
+  roles:
+    - ansible-postfix
+  vars:
+    postfix_header_checks:
+      - pattern: "/^From:.*/"
+        action: REPLACE
+        text: "From mypve-{{ansible_hostname}} mypve-{{ansible_hostname}}@pve.intranet"
+    postfix_relayhost: smtp.gmail.com
+    postfix_relaytls: true
+    postfix_smtp_tls_cafile: /etc/ssl/certs/ca-certificates.crt
+    postfix_sasl_user: "{{ pve_postfix_sasl_user }}"
+    postfix_sasl_password: "{{ pve_postfix_sasl_password }}"

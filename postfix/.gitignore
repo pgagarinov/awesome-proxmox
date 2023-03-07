@@ -1,0 +1,5 @@
+inventory/*
+!my-inventory
+!my-inventory/**
+!my-postfix/
+!my-postfix/**
