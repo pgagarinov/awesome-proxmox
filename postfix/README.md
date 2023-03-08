@@ -12,14 +12,18 @@
   sudo apt install ansible
   ```
 
-  or follow [step 2](https://github.com/Alliedium/awesome-ansible#setting-up-config-machine) of `Setting up config machine` section to install latest Ansible version
+  or follow [step 2](https://github.com/Alliedium/awesome-ansible#setting-up-config-machine) of `Setting up config machine` section to install the latest Ansible version
 
-  ### 2. Install Ansible postfix role - [Oefenweb/ansible-postfix](https://github.com/Oefenweb/ansible-postfix)
-
-  - Navigate to `./playbooks/config-postfix`
+  ### 2. Clone this repo
 
   ```
-  ansible-galaxy install -r ./requirements.yml
+  git clone https://github.com/Alliedium/awesome-proxmox.git $HOME/awesome-proxmox
+  ```
+
+  ### 3. Install Ansible postfix role - [Oefenweb/ansible-postfix](https://github.com/Oefenweb/ansible-postfix)
+
+  ```
+  ansible-galaxy install -r $HOME/awesome-proxmox/postfix/config-postfix/requirements.yml
   ```
 
   ![install_postfix_role](./images/install_postfix_role.png)
@@ -35,47 +39,42 @@
  
   Ansible vault provides a way to encrypt and manage sensitive data such as passwords. We use Ansible vault to store `pve_postfix_sasl_user` and `pve_postfix_sasl_password` variables
 
-  - Navigate to `./playbooks/config-postfix`
-  
-  ```
-  cd ./playbooks/config-postfix
-  ```
-
-  - copy `./secrets-file.enc.example` file to `./secrets-file.enc` and edit last one
+  - copy `$HOME/awesome-proxmox/postfix/config-postfix/secrets-file.enc.example` file to `$HOME/awesome-proxmox/postfix/config-postfix/secrets-file.enc` and edit the last one
   
   ![secrets](./images/secrets-file.png)
 
-  Encrypt `./secrets-file.enc`  file and set a password by command
+  Encrypt `$HOME/awesome-proxmox/postfix/config-postfix/secrets-file.enc`  file and set a password by command
 
   ```
-  ansible-vault encrypt secrets-file.enc
+  ansible-vault encrypt $HOME/awesome-proxmox/postfix/config-postfix/secrets-file.enc
   ```
 
   ![encrypt file](./images/secrets-file_1.png)
 
-  `./secrets-file.enc`  file is encrypted
+  `$HOME/awesome-proxmox/postfix/config-postfix/secrets-file.enc`  file is encrypted
 
   ![encrypted_file file](./images/encrypted_file.png)
 
 ## **Ansible postfix playbook**
 
-  - copy `./inventory` folder to `./my-inventory`
+  - copy `$HOME/awesome-proxmox/postfix/config-postfix/inventory` folder to `$HOME/awesome-proxmox/postfix/config-postfix/my-inventory`
 
-  - In `./my-inventory/hosts.yml` file replace hosts IP addresses to your hosts IP addresses and edit the path to private key to match it on your machine.
+  - In `$HOME/awesome-proxmox/postfix/config-postfix/my-inventory/hosts.yml` file replace hosts IP addresses to your hosts IP addresses and edit the path to private key to match it on your machine.
 
  
   **Run ansible playbook**
 
-  Navigate to `./playbooks/config-postfix` and run command
+  Navigate to `$HOME/awesome-proxmox/postfix/config-postfix` and run command
 
   ```
+  cd $HOME/awesome-proxmox/postfix/config-postfix
   ansible-playbook ./site.yaml -i ../../my-inventory/ -e @secrets-file.enc --ask-vault-pass
   ```
   
-  You can edit the file `./playbooks/config-postfix/run.sh` by pasting the above command in place of the existing one and run
+  You can edit the file `$HOME/awesome-proxmox/postfix/config-postfix/run.sh` by pasting the above command in place of the existing one and run
   
   ```
-  ./run.sh
+  $HOME/awesome-proxmox/postfix/config-postfix/run.sh
   ```
   
   ![run_sh](./images/run_sh.png)
