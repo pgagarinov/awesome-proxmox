@@ -39,7 +39,9 @@
  
   Ansible vault provides a way to encrypt and manage sensitive data such as passwords. We use Ansible vault to store `pve_postfix_sasl_user` and `pve_postfix_sasl_password` variables
 
-  - copy `$HOME/awesome-proxmox/postfix/playbooks/config-postfix/secrets-file.enc.example` file to `$HOME/awesome-proxmox/postfix/playbooks/config-postfix/secrets-file.enc` and edit the last one
+  ```
+  cp $HOME/awesome-proxmox/postfix/playbooks/config-postfix/secrets-file.enc.example $HOME/awesome-proxmox/postfix/playbooks/config-postfix/secrets-file.enc
+  ```
   
   ![secrets](./images/secrets-file.png)
 
@@ -57,22 +59,23 @@
 
 ## **Ansible postfix playbook**
 
-  - copy `$HOME/awesome-proxmox/postfix/inventory` folder to `$HOME/awesome-proxmox/postfix/my-inventory`
+  ```
+  cp $HOME/awesome-proxmox/postfix/inventory $HOME/awesome-proxmox/postfix/my-inventory
+  ```
 
-  - In `$HOME/awesome-proxmox/postfix/my-inventory/hosts.yml` file replace hosts IP addresses to your hosts IP addresses and edit the path to private key to match it on your machine.
+  - In `$HOME/awesome-proxmox/postfix/my-inventory/hosts.yml` file replace hosts IP addresses to your hosts IP addresses and edit the path to private key to match it on your machine. Our hosts are in fact include our Proxmox nodes as well as (possibly) Proxmox Backup Server
 
  
   **Run ansible playbook**
 
-  Navigate to `$HOME/awesome-proxmox/postfix/playbooks/config-postfix` and run command
+  Edit the file `$HOME/awesome-proxmox/postfix/playbooks/config-postfix/run.sh` in the command change `inventory` to `my-inventory` like this
 
   ```
-  cd $HOME/awesome-proxmox/postfix/playbooks/config-postfix
   ansible-playbook ./site.yaml -i ../../my-inventory/ -e @secrets-file.enc --ask-vault-pass
   ```
-  
-  You can edit the file `$HOME/awesome-proxmox/postfix/playbooks/config-postfix/run.sh` by pasting the above command in place of the existing one and run
-  
+ 
+  Run the script
+
   ```
   $HOME/awesome-proxmox/postfix/playbooks/config-postfix/run.sh
   ```
