@@ -74,8 +74,8 @@
   $HOME/awesome-proxmox/postfix/playbooks/config-postfix/run.sh
   ```
 
-  You could provide your `inventory` file (path to your inventory folder or file) as script parameter
+  You could provide your `inventory` folder (path to your inventory folder) as script parameter
 
   ```
-  $HOME/awesome-proxmox/postfix/playbooks/config-postfix/run.sh <inventory_path>
+  $HOME/awesome-proxmox/postfix/playbooks/config-postfix/run.sh [<inventory_path>]
   ```
