@@ -63,7 +63,7 @@
   cp $HOME/awesome-proxmox/postfix/inventory $HOME/awesome-proxmox/postfix/my-inventory
   ```
 
-  - In `$HOME/awesome-proxmox/postfix/my-inventory/hosts.yml` file replace hosts IP addresses to your hosts IP addresses and edit the path to private key to match it on your machine. Our hosts are in fact include our Proxmox nodes as well as (possibly) Proxmox Backup Server
+  - In `$HOME/awesome-proxmox/postfix/my-inventory/hosts.yml` file replace hosts IP addresses to your hosts IP addresses and edit the path to private key to match it on your machine. Our hosts in fact assume to include our Proxmox nodes as well as (possibly) Proxmox Backup Server.
 
  
   **Run ansible playbook**
