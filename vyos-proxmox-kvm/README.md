@@ -1,4 +1,4 @@
-# Create Vyos VMs within Proxmox cluster via Ansible playbook
+# Create Vyos VMs within Proxmox cluster via Ansible playbooks
   
   These Ansible playbooks create `vyos` VMs on Proxmox node with certain configured network settings. Also using playbooks you can remove, start or stop them.
 
