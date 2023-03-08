@@ -1,4 +1,4 @@
-# Postfix setup on VMs via Ansible playbooks
+# Postfix setup on VMs, Proxmox nodes and Proxmox Backup Server via Ansible playbook
   
   These Ansible playbook configures the postfix service on VMs.
 
