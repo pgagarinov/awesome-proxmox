@@ -1,10 +1,10 @@
 ---
-- name: 'prep proxmox hosts for automation'
-  hosts: 'all'
+- name: "prepare data, create and start configured Vyos VM"
+  hosts: "all"
   vars_prompt:
-  - name: pv_password
-    prompt: "Node Password"
-    private: yes
+    - name: pv_password
+      prompt: "Node Password"
+      private: yes
   user: root@pam
   gather_facts: false
   roles:

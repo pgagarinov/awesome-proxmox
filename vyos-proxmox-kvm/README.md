@@ -24,8 +24,7 @@
   
   ```
   apt install -y python3-pip python-dev build-essential
-  pip install virtualenv
-  pip install proxmoxer
+  pip install virtualenv proxmoxer
   ```
 
   ### 3. Create `vyos` cloud-init image, using [vyos/vyos-vm-images](https://github.com/vyos/vyos-vm-images) Ansible playbook and copy it to `~/cloud-init-images` folder of `Ansible host`
