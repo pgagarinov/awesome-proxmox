@@ -46,7 +46,7 @@
   Encrypt `$HOME/awesome-proxmox/postfix/playbooks/config-postfix/secrets-file.enc`  file and set a password by command
 
   ```
-  ansible-vault encrypt $HOME/awesome-proxmox/postfix/config-postfix/secrets-file.enc
+  ansible-vault encrypt $HOME/awesome-proxmox/postfix/playbooks/config-postfix/secrets-file.enc
   ```
 
   ![encrypt file](./images/secrets-file_1.png)
