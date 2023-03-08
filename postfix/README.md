@@ -79,3 +79,5 @@
   ```
   $HOME/awesome-proxmox/postfix/playbooks/config-postfix/run.sh [<inventory_path>]
   ```
+
+  If the path given by `<inventory_path>` is not given, then `../../my-inventory/` will be used by default (according to the name of the inventory above).
