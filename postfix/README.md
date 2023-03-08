@@ -1,6 +1,6 @@
 # Postfix setup on Proxmox nodes and Proxmox Backup Server via Ansible playbooks
   
-  These Ansible playbook configures the postfix service on different hosts (Proxmox nodes as well as Proxmox Backup Server)![image](https://user-images.githubusercontent.com/4992575/223792367-ed9f3a46-0633-4e87-a875-e8af53a4573b.png).
+  These Ansible playbook configures the postfix service on different hosts (Proxmox nodes as well as Proxmox Backup Server).
 
 ## Prerequisites
   ### 1. Install `Ansible` on a certain Linux host from which Ansible playbooks are to be run, this host is called for brevity below `Ansible host`
