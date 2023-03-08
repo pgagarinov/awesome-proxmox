@@ -67,17 +67,15 @@
 
  
   **Run ansible playbook**
-
-  Edit the file `$HOME/awesome-proxmox/postfix/playbooks/config-postfix/run.sh` in the command change `inventory` to `my-inventory` like this
-
-  ```
-  ansible-playbook ./site.yaml -i ../../my-inventory/ -e @secrets-file.enc --ask-vault-pass
-  ```
  
   Run the script
 
   ```
   $HOME/awesome-proxmox/postfix/playbooks/config-postfix/run.sh
   ```
-  
-  ![run_sh](./images/run_sh.png)
+
+  You could provide your `inventory` file (path to your inventory folder or file) as script parameter
+
+  ```
+  $HOME/awesome-proxmox/postfix/playbooks/config-postfix/run.sh <inventory_path>
+  ```
