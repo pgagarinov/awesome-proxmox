@@ -5,7 +5,7 @@
 ## Prerequisites
   ### 0. It is assumed that a Proxmox cluster where VMs are to be deployed is already set up
 
-  ### 1. Install `Ansible` on a certain Linux host from which Ansible playbooks are to be run, this host is called for brevity below `Ansible host`
+  ### 1. Install `Ansible` on a certain Linux host from which Ansible playbooks are to be run, this host is called for brevity below `Ansible config host`
 
   For `Debian` Linux
   ```
@@ -27,10 +27,10 @@
   pip install virtualenv proxmoxer
   ```
 
-  ### 3. Create `vyos` cloud-init image, using [vyos/vyos-vm-images](https://github.com/vyos/vyos-vm-images) Ansible playbook and copy it to `~/cloud-init-images` folder of `Ansible host`
+  ### 3. Create `vyos` cloud-init image, using [vyos/vyos-vm-images](https://github.com/vyos/vyos-vm-images) Ansible playbook and copy it to `~/cloud-init-images` folder of `Ansible config host`
 
 ## Prepare Ansible files for deployment
-  ### 1. Clone `awesome-proxmox` project to `Ansible host`
+  ### 1. Clone `awesome-proxmox` project to `Ansible config host`
   
   ```
   git clone https://github.com/Alliedium/awesome-proxmox.git
