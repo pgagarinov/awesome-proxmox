@@ -41,19 +41,19 @@
   cd ./playbooks/config-postfix
   ```
 
-  - copy `./secrets-file.enc.example` file to `./secrets-file2.enc` and edit last one
+  - copy `./secrets-file.enc.example` file to `./secrets-file.enc` and edit last one
   
   ![secrets](./images/secrets-file.png)
 
-  Encrypt `./secrets-file2.enc`  file and set a password by command
+  Encrypt `./secrets-file.enc`  file and set a password by command
 
   ```
-  ansible-vault encrypt secrets-file2.enc
+  ansible-vault encrypt secrets-file.enc
   ```
 
   ![encrypt file](./images/secrets-file_1.png)
 
-  `./secrets-file2.enc`  file is encrypted
+  `./secrets-file.enc`  file is encrypted
 
   ![encrypted_file file](./images/encrypted_file.png)
 
@@ -69,7 +69,7 @@
   Navigate to `./playbooks/config-postfix` and run command
 
   ```
-  ansible-playbook ./site.yaml -i ../../my-inventory/ -e @secrets-file2.enc --ask-vault-pass
+  ansible-playbook ./site.yaml -i ../../my-inventory/ -e @secrets-file.enc --ask-vault-pass
   ```
   
   You can edit the file `./playbooks/config-postfix/run.sh` by pasting the above command in place of the existing one and run
