@@ -1,5 +1,6 @@
 #cloud-config
 vyos_config_commands:
+{% if network.enable is not defined or network.enable == true %}
   - set firewall group network-group RFC1918 network '10.0.0.0/8'
   - set firewall group network-group RFC1918 network '172.16.0.0/12'
   - set firewall group network-group RFC1918 network '192.168.0.0/16'
@@ -41,10 +42,11 @@ vyos_config_commands:
   - set service dns forwarding listen-address '{{ item.network.dns_listen_address }}'
   - set service dns forwarding allow-from '{{ network.dns_allow_from }}'
   - set service dns forwarding system
+{% endif %}
   - set service ssh port '22'
   - set system host-name '{{ item.name }}'
 {% for user_props in users %}
-  - set system login user {{ user_props.user }} authentication encrypted-password '{{ user_props.encrypted_password }}'
+  - set system login user {{ user_props.user }} authentication encrypted-password '{{ users[0].encrypted_password }}'
   - set system login user {{ user_props.user }} authentication public-keys {{ user_props.full_name }} key '{{ user_props.public_key }}'
   - set system login user {{ user_props.user }} authentication public-keys {{ user_props.full_name }} type '{{ user_props.key_type }}'
   - set system login user {{ user_props.user }} full-name '{{ user_props.full_name }}'
@@ -54,4 +56,6 @@ vyos_config_commands:
 {% for ntp_server in ntp_servers %}
   - set system ntp server {{ ntp_server }}
 {% endfor %}
+{% if network.enable is not defined or network.enable == true %}
   - set system name-server '{{ network.name_server }}'
+{% endif %}

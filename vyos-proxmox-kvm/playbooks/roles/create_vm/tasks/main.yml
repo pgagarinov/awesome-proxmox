@@ -21,7 +21,7 @@
     memory: "{{ resources.memory }}"
     balloon: "0"
     citype: "nocloud"
-    net: '{"net0" : "virtio,bridge=vmbr0,rate=200"}'
+    net: "{{ item.network.net_devices | default (network.net_devices | default('{\"net0\":\"virtio,bridge=vmbr0,rate=200\"}')) }}"
   loop: "{{ vms }}"
   loop_control:
     index_var: loop_index
