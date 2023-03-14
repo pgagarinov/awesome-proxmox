@@ -31,7 +31,7 @@ network:
 users:
   - user: "vyos-user"
     full_name: "vyos-user"
-    encrypted_password: "$6$B2VXlWNyvb3ZaSOo$Nrk/gCRrjdUHEddwE3TUFn/ktXtyf8qBkFxg3Iq3Gn.WKo41SzqqTP2YoZfDyU8W.e6hqUI/t0bu4bU5MFEqe1"
+    encrypted_password: "$6$NNp60vo1DMVLUGLY$lNOSDbw2x6n6JuR9AMp4QmNcmEcT86B1gF.rcnsa03USUoai393O3OoExzb2p49mKqrhqy9FRpKi2HA65GKTv/"
     public_key: "AAAAB3NzaC1yc2EAAAADAQABAAABgQDINWD9ztR8Zq/dGjGENWlMyjgvqBCy2cAoOg4ztB2w7YDA1JVObP4MDzBJnl+VD/6HvcjAjtC6n9AzaDG1odGHCzGY8Up1qR8me6W+XUPKS1Fkq3LQ7fg8Cza5uH45azPELA0myA4Mkodxw+9XLkn3wVSF1oEv8m9LP7c6qDXsEMuVaELUYgDYqBBTvQddUGfU/nSmRUpoLfCjnZ8NkXFzXyX3J/esnsHXKQBI9XKTMpmwPWmvCtK873IH3aplclZVIWlL7emrilt3cEM2oGe171TcFLF+ZE7945CDbrUIdpBc58fVyGdOJYqOJXyGvlFVZvyGuvjZIXtZG1wCAK7BU+euWTWxA3z1sbFbZMJPNEQnptCT/iP/Da/FLegtmnIOANpE52Y+5h7hRyZvfyQXVWf5YX9KkpNO4pdYsXKBKv9jm7MiENATLsYs5NtpC5GNgFRWg1OLiFU2gqD+C/fH9k8GoCpaLqgBPYdKFzXpwBsCuUsMJAG4u1Y8fJWJJus= tolik@DESKTOP-D8C0475"
     key_type: "ssh-rsa"
 
