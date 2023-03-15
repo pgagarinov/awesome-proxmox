@@ -44,8 +44,8 @@
       proxmox_kvm:
         api_user: root@pam
         api_password: "{{ pv_password }}"
-        api_host:  "{{ default_proxmox_node }}"
-        node: "{{ default_proxmox_node }}"
+        api_host:  "{{ ansible_hostname }}"
+        node: "{{ ansible_hostname }}"
         vmid: "{{ item.id }}"
         boot: "cd"
         bootdisk: "virtio0"

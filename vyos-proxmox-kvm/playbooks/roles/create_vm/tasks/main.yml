@@ -7,10 +7,10 @@
 
 - name: Create a new VM from scratch in Proxmox node
   proxmox_kvm:
-    node: "{{ default_proxmox_node }}"
+    node: "{{ ansible_hostname }}"
     api_user: root@pam
     api_password: "{{ pv_password }}"
-    api_host: "{{ default_proxmox_node }}"
+    api_host: "{{ ansible_hostname }}"
     name: "{{ item.name }}"
     vmid: "{{ item.id }}"
     proxmox_default_behavior: "no_defaults"

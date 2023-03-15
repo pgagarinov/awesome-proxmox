@@ -10,7 +10,7 @@
     api_user: root@pam
     proxmox_default_behavior: "no_defaults"
     api_password: "{{ pv_password }}"
-    api_host: "{{ default_proxmox_node }}"
+    api_host: "{{ ansible_hostname }}"
     vmid: "{{ item.id }}"
     state: "{{ action }}"
     force: yes
