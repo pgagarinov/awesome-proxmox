@@ -46,7 +46,7 @@ vyos_config_commands:
   - set service ssh port '22'
   - set system host-name '{{ item.name }}'
 {% for user_props in users %}
-  - set system login user {{ user_props.user }} authentication encrypted-password '{{ users[0].encrypted_password }}'
+  - set system login user {{ user_props.user }} authentication encrypted-password '{{ user_props.encrypted_password }}'
   - set system login user {{ user_props.user }} authentication public-keys {{ user_props.full_name }} key '{{ user_props.public_key }}'
   - set system login user {{ user_props.user }} authentication public-keys {{ user_props.full_name }} type '{{ user_props.key_type }}'
   - set system login user {{ user_props.user }} full-name '{{ user_props.full_name }}'
