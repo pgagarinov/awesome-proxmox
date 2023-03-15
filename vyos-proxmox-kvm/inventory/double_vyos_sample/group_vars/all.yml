@@ -1,4 +1,3 @@
-default_proxmox_node: px3-sandbox-3
 remote_image_folder: ~/cloud-init-images
 cloud_init_image_path: ~/cloud-init-images/vyos-1.4.5-cloud-init-2G-qemu.qcow2
 local_cloud_init_image_path: ~/cloud-init-images/vyos-1.4.5-cloud-init-2G-qemu.qcow2
