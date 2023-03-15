@@ -6,7 +6,7 @@
       prompt: "Node Password"
       private: yes
   user: root@pam
-  gather_facts: false
+  gather_facts: true
   roles:
     - { role: check_if_vm_exists }
     - { role: check_vyos_image_file }

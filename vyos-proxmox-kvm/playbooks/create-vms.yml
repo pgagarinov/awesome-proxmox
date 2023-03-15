@@ -5,7 +5,7 @@
       prompt: "Node Password"
       private: yes
   user: root@pam
-  gather_facts: false
+  gather_facts: true
   roles:
     - { role: prepare_vyos_cloud_init_data_for_vms }
     - { role: create_vm }

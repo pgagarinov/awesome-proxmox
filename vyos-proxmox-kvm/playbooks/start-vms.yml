@@ -7,6 +7,6 @@
     prompt: "Node Password"
     private: yes
   user: root@pam
-  gather_facts: false
+  gather_facts: true
   roles:
     - { role: start_or_stop_vms, action: started } #started, stopped, absent
