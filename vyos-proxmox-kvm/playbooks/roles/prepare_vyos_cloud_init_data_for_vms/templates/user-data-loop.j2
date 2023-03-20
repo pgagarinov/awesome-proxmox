@@ -1,6 +1,5 @@
 #cloud-config
 vyos_config_commands:
-{% if network.enable is not defined or network.enable == true %}
   - set firewall group network-group RFC1918 network '10.0.0.0/8'
   - set firewall group network-group RFC1918 network '172.16.0.0/12'
   - set firewall group network-group RFC1918 network '192.168.0.0/16'
@@ -25,13 +24,14 @@ vyos_config_commands:
   - set firewall name OUTSIDE-LOCAL rule 31 state new 'enable'
   - set interfaces ethernet eth0 address '{{ item.network.wan_ip }}/{{ network.wan_ip_mask | default ("24") }}'
   - set interfaces ethernet eth0 description '{{ network.wan_description }}'
+  - set interfaces loopback lo
+  - set protocols static route 0.0.0.0/0 next-hop '{{ network.static_route_next_hop }}'
+{% if network.enable_extra_config is not defined or network.enable_extra_config == true %}
   - set interfaces ethernet eth0 vif {{ network.vlan_id }} address '{{ item.network.lan_ip }}/{{ network.lan_ip_mask }}'
   - set interfaces ethernet eth0 vif {{ network.vlan_id }} description '{{ network.lan_description }}'
-  - set interfaces loopback lo
   - set nat source rule 100 outbound-interface '{{ network.nat_outbound_interface }}'
   - set nat source rule 100 source address '{{ network.nat_source_address }}'
   - set nat source rule 100 translation address 'masquerade'
-  - set protocols static route 0.0.0.0/0 next-hop '{{ network.static_route_next_hop }}'
   - set service dhcp-server shared-network-name LAN subnet {{ network.dhcp.lan.subnet }} default-router '{{ item.network.dhcp.lan.default_router }}'
   - set service dhcp-server shared-network-name LAN subnet {{ network.dhcp.lan.subnet }} name-server '{{ item.network.dhcp.lan.name_server }}'
   - set service dhcp-server shared-network-name LAN subnet {{ network.dhcp.lan.subnet }} domain-name '{{ network.dhcp.lan.domain_name }}'
@@ -56,6 +56,6 @@ vyos_config_commands:
 {% for ntp_server in ntp_servers %}
   - set system ntp server {{ ntp_server }}
 {% endfor %}
-{% if network.enable is not defined or network.enable == true %}
+{% if network.enable_extra_config is not defined or network.enable_extra_config == true %}
   - set system name-server '{{ network.name_server }}'
 {% endif %}
