@@ -56,6 +56,4 @@ vyos_config_commands:
 {% for ntp_server in ntp_servers %}
   - set system ntp server {{ ntp_server }}
 {% endfor %}
-{% if network.enable_extra_config is not defined or network.enable_extra_config == true %}
   - set system name-server '{{ network.name_server }}'
-{% endif %}
