@@ -1,4 +1,4 @@
-# Collection of products for Proxmox clusters
+# Collection of tools for Proxmox clusters
 
 | Product | Details |
 |------|-------|
