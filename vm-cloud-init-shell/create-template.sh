@@ -71,6 +71,7 @@ qm set $Pz_VM_TEMPLATE_ID --serial0 socket
 qm set $Pz_VM_TEMPLATE_ID --ide2 $Pz_DATA_STORAGE_ID:cloudinit
 qm set $Pz_VM_TEMPLATE_ID --boot c --bootdisk scsi0
 qm set $Pz_VM_TEMPLATE_ID --agent enabled=1,fstrim_cloned_disks=1,type=virtio
+qm set $Pz_VM_TEMPLATE_ID --ostype=l26
 printf "$msg: done\n"
 #
 msg="${MSGCOLOR}Setting CloudInit parameters${NOCOLOR}"
