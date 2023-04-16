@@ -5,8 +5,8 @@
 
 ## 2. Clone this repo and cd to this folder
 - Install git if missing: `apt install git`
-- Clone the repo: `git clone https://github.com/Alliedium/awesome-linux-config.git`
-- Change you current directory: `cd ./awesome-linux-config/proxmox7/cloud-init`
+- Clone the repo: `git clone https://github.com/Alliedium/awesome-proxmox.git`
+- Change you current directory: `cd ./vm-cloud-init-shell`
 
 ## 3. Copy the configuration and adjust it to match your case 
 - Create your own env file using the provided example: `cp ./.env.example ./.env`
