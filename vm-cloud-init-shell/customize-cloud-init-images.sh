@@ -42,6 +42,10 @@ do
   then
     echo "Special treat for Ubuntu Jammy"
     $SCRIPT_DIR/_customize-ubuntu-jammy.sh $custom_file_tmp && mv $custom_file_tmp $custom_file
+  elif [[ "$custom_file_tmp" =~ .*\/noble[^\/]+$ ]]
+  then
+    echo "Special treat for Ubuntu Noble"
+    $SCRIPT_DIR/_customize-ubuntu-noble.sh $custom_file_tmp && mv $custom_file_tmp $custom_file
   else
     echo "Standard treat for the image"
     virt-customize -a $custom_file_tmp --install $Pz_CLOUD_INIT_INSTALL_PKG_LIST && mv $custom_file_tmp $custom_file
