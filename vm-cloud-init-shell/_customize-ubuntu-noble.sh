@@ -14,7 +14,8 @@ printf "$msg: done\n"
 
 msg="===Choosing the fastest mirrors"
 printf "$msg...\n"
-virt-customize -a $1 --run-command 'mkdir /run/lock; printf "y\n"|nala fetch --fetches 3 -c GE --auto'
+# add -c <COUNTRY_CODE> BELOW to filter mirrors by country 
+virt-customize -a $1 --run-command 'mkdir /run/lock; printf "y\n"|nala fetch --fetches 3 --auto -y'
 printf "$msg: done\n"
 
 msg="===Removing Snap"

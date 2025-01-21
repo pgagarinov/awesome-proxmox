@@ -14,7 +14,7 @@ printf "$msg: done\n"
 
 msg="===Choosing the fastest mirrors"
 printf "$msg...\n"
-virt-customize -a $1 --run-command 'mkdir /run/lock; printf "y\n"|nala fetch --fetches 3 -c GE --auto'
+virt-customize -a $1 --run-command 'mkdir /run/lock; printf "y\n"|nala fetch --fetches 3 --auto -y'
 printf "$msg: done\n"
 
 msg="===Removing Snap"
