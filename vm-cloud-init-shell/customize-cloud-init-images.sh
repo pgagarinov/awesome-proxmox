@@ -46,6 +46,10 @@ do
   then
     echo "Special treat for Ubuntu Noble"
     $SCRIPT_DIR/_customize-ubuntu-noble.sh $custom_file_tmp && mv $custom_file_tmp $custom_file
+  elif [[ "$custom_file_tmp" =~ .*\/resolute[^\/]+$ ]]
+  then
+    echo "Special treat for Ubuntu Resolute"
+    $SCRIPT_DIR/_customize-ubuntu-resolute.sh $custom_file_tmp && mv $custom_file_tmp $custom_file
   else
     echo "Standard treat for the image"
     virt-customize -a $custom_file_tmp --install $Pz_CLOUD_INIT_INSTALL_PKG_LIST && mv $custom_file_tmp $custom_file
