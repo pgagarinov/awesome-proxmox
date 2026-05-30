@@ -1,0 +1,7 @@
+# oh-my-claudecode local tooling state — ignore everything under any .omc/
+# directory EXCEPT specs/ and plans/ (planning artifacts worth keeping).
+**/.omc/**
+!**/.omc/specs/
+!**/.omc/specs/**
+!**/.omc/plans/
+!**/.omc/plans/**
